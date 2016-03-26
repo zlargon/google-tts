@@ -1,0 +1,27 @@
+{
+  "name": "google-tts",
+  "version": "0.0.0",
+  "description": "Google TTS (Text-To-Speech) for node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zlargon/google-tts.git"
+  },
+  "keywords": [
+    "google",
+    "google-tts",
+    "text-to-speech"
+  ],
+  "author": "zlargon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zlargon/google-tts/issues"
+  },
+  "homepage": "https://github.com/zlargon/google-tts#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
