@@ -4,7 +4,8 @@
   "description": "Google TTS (Text-To-Speech) for node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "cover": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,12 @@
   "homepage": "https://github.com/zlargon/google-tts#readme",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "es6-promise": "^3.1.2",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5"
   }
 }
