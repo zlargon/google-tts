@@ -59,4 +59,4 @@ co(function * () {
   yield downloadFile(url, dest);
   console.log('Download success');
 })
-.catch(err => console.error(err.stack))
+.catch(err => console.error(err.stack));
