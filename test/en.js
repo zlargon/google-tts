@@ -42,4 +42,13 @@ describe('English TTS', function() {
       .then(function (res) { return res.status })
     ).to.eventually.equal(200);
   });
+
+  it('hello uk', function () {
+    expect(
+      tts('hello uk', 'en', 1, 'uk')
+      .then(function (url) { return fetch(url) })
+      .then(function (res) { return res.status })
+    ).to.eventually.equal(200);
+  });
+
 });
