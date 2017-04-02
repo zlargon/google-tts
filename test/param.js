@@ -63,4 +63,24 @@ describe('parameters', function() {
       tts('test', 'en', 1, 10)
     ).to.eventually.be.rejectedWith(Error);
   });
+
+  it("accent = null", function () {
+    return expect(
+      tts('test', 'en', 1, 1000, null)
+    ).to.eventually.be.rejectedWith(TypeError);
+  });
+
+  it("accent = ''", function () {
+    return expect(
+      tts('test', 'en', 1, 1000, '')
+    ).to.eventually.be.rejectedWith(TypeError);
+  });
+
+
+  it("accent = 'en'", function () {
+    return expect(
+      tts('test', 'en', 1, 1000, 'en')
+    ).to.eventually.be.rejectedWith(TypeError);
+  });
+
 });

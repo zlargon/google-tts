@@ -22,7 +22,12 @@ $ npm install google-tts-api --save
 ``` js
 var googleTTS = require('google-tts-api');
 
-googleTTS('Hello World', 'en', 1)   // speed normal = 1 (default), slow = 0.24
+// text to speak (a string)
+// lang (see google translate for supported languages)
+// speed normal = 1 (default), slow = 0.24
+// timeout in milliseconds = 1000 (default)
+// accent american = 'us' (default), british = 'uk'
+googleTTS('Hello World', 'en', 1, 1000, 'us')
 .then(function (url) {
   console.log(url); // https://translate.google.com/translate_tts?...
 })
