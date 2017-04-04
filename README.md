@@ -33,6 +33,10 @@ googleTTS('Hello World', 'en', 1)   // speed normal = 1 (default), slow = 0.24
 
 [More Example](https://github.com/zlargon/google-tts/tree/master/example)
 
+## Language Support
+
+You can find suitable `languageCode` from [Google Document](https://cloud.google.com/speech/docs/languages).
+
 ## License
 
 MIT
