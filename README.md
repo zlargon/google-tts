@@ -33,6 +33,10 @@ googleTTS('Hello World', 'en', 1)   // speed normal = 1 (default), slow = 0.24
 
 [More Example](https://github.com/zlargon/google-tts/tree/master/example)
 
+## Limitation
+
+Google Text-To-Speech API (for free) can not deal with texts which are over than 200 characters. ([#5](https://github.com/zlargon/google-tts/issues/5))
+
 ## Language Support
 
 You can find suitable `languageCode` from [Google Document](https://cloud.google.com/speech/docs/languages).
