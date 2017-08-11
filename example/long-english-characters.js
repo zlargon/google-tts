@@ -12,54 +12,50 @@ const tts = require('../lib/api');
 const multi_tts = (text, speed, timeout) => {
   const MAX = 200;  // Max string length
 
-  const isSpace = c => /\s/.test(c);
-  const lastIndexOfSpace = s => {
-    for (let i = s.length - 1; i >= 0; i--) {
-      const c = s.charAt(i);
-      if (isSpace(c)) return i;
+  const isSpace = (s, i) => /\s/.test(s.charAt(i));
+  const lastIndexOfSpace = (s, left, right) => {
+    for (let i = right; i >= left; i--) {
+      if (isSpace(s, i)) return i;
     }
     return -1;  // not found
   };
 
   return key(timeout).then(key => {
     const result = [];
-    let buffer = text;
-
-    for (;;) {
-      // check buffer's length
-      if (buffer.length < MAX) {
-        result.push({
-          text: buffer,
-          url: tts(buffer, key, 'en', speed)
-        });
-        break;
-      }
-
-      // cut string, and check whether the word is cut in the middle.
-      let str = buffer.substr(0, MAX);
-      if (isSpace(str.charAt(MAX - 1)) || isSpace(buffer.charAt(MAX))) {
-        buffer = buffer.slice(MAX);
-        result.push({
-          text: str,
-          url: tts(str, key, 'en', speed)
-        });
-        continue;
-      }
-
-      // find last index of space
-      const last = lastIndexOfSpace(str);
-      if (last === -1) {
-        throw new Error('the amount of single word is over that 200.');
-      }
-
-      // reset str and buffer
-      buffer = buffer.slice(last);
-      str = str.slice(0, last);
-
+    const addResult = (text, start, end) => {
+      const str = text.slice(start, end + 1);
       result.push({
         text: str,
         url: tts(str, key, 'en', speed)
       });
+    };
+
+    let start = 0;
+    for (;;) {
+
+      // check text's length
+      if (text.length - start <= MAX) {
+        addResult(text, start, text.length - 1);
+        break;  // end of text
+      }
+
+      // check whether the word is cut in the middle.
+      let end = start + MAX - 1;
+      if (isSpace(text, end) || isSpace(text, end + 1)) {
+        addResult(text, start, end);
+        start = end + 1;
+        continue;
+      }
+
+      // find last index of space
+      end = lastIndexOfSpace(text, start, end);
+      if (end === -1) {
+        throw new Error('the amount of single word is over that 200.');
+      }
+
+      // add result
+      addResult(text, start, end);
+      start = end + 1;
     }
 
     return result;
@@ -94,13 +90,17 @@ Dutch peasant farmers were known throughout Europe for their agricultural innova
 As early as the seventeenth century the Dutch were helping them drain marshes and fens where, with the help of advanced techniques, they grew new crops.
 By the mid-eighteenth century new agricultural methods as well as selective breeding of livestock had caught on throughout the country.
 
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
 Much of the increased production was consumed by Great Britain’s burgeoning population.
 At the same time, people were moving to the city, partly because of the enclosure movement; that is, the fencing of common fields and pastures in order to provide more compact, efficient privately held agricultural parcels that would produce more goods and greater profits.
 In the sixteenth century enclosures were usually used for creating sheep pastures, but by the eighteenth century new farming techniques made it advantageous for large landowners to seek enclosures in order to improve agricultural production.
 Between 1714 and 1820 over 6 million acres of English land were enclosed.
 As a result, many small, independent farmers were forced to sell out simply because they could not compete.
 Non-landholding peasants and cottage workers, who worked for wages and grazed cows or pigs on the village common, were also hurt when the common was no longer available.
-It was such people who began to flock to the cities seeking employment and who found work in the factories that would transform the nation and, the world.`;
+It was such people who began to flock to the cities seeking employment and who found work in the factories that would transform the nation and, the world.
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`;
 
 multi_tts(article)
 .then(result => {
@@ -109,5 +109,9 @@ multi_tts(article)
     console.log(`${o.text}`);
     console.log(`${o.url}\n`);
   });
+
+  const origin = result.map(x => x.text).join('');
+  console.log('Text are the same:', origin === article);
+  console.log('Length are the same:', origin.length === article.length, `(${origin.length})`);
 })
 .catch(console.error);
