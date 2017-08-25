@@ -17,6 +17,10 @@ Google TTS (Text-To-Speech) for node.js
 $ npm install google-tts-api --save
 ```
 
+## Change Log
+
+Please see [CHANGELOG](https://github.com/zlargon/google-tts/blob/master/CHANGELOG.md).
+
 ## Usage
 
 ``` js
