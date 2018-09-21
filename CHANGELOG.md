@@ -1,3 +1,8 @@
+## 0.0.3 (Sep 21, 2018)
+
+- Add package-lock.lock file
+- Fix the change of Google Translate API ([#14](https://github.com/zlargon/google-tts/pull/14))
+
 ## 0.0.2 (Aug 25, 2017)
 
 - Add yarn.lock file
