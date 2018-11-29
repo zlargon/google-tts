@@ -1,6 +1,6 @@
 {
   "name": "google-tts-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Google TTS (Text-To-Speech) for node.js",
   "main": "index.js",
   "scripts": {
