@@ -1,16 +1,21 @@
 language: node_js
-sudo: false
+
+os:
+  - linux
+  - osx
+
 node_js:
-  - "6"
-  - "8"
-  - "10"
-  - "node"
+  - 10
+  - 12
+  - 14
 
-before_script:
-  - "npm -g install npm@latest"
+install: npm ci
+script: npm run cover
 
-script:
-  - "npm run cover"
-
-after_script:
-  - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+jobs:
+  include:
+    - os: osx
+      node_js: node
+      install: npm ci
+      script: npm run cover
+      after_script: cat ./coverage/lcov.info | coveralls
