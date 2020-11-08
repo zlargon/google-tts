@@ -1,3 +1,8 @@
+## 0.0.5 (Nov 8, 2020)
+
+- Upgrade the dependencies and fix the vulnerability. ([#32](https://github.com/zlargon/google-tts/issues/32))
+- Add retry mechanism to prevent fetching token key failed too frequently. ([#33](https://github.com/zlargon/google-tts/issues/33))
+
 ## 0.0.4 (Nov 29, 2018)
 
 - Fix the change of Google Translate API ([@ncpierson](https://github.com/ncpierson) in [#19](https://github.com/facebook/react/pull/19))
