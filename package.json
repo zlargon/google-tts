@@ -4,8 +4,8 @@
   "description": "Google TTS (Text-To-Speech) for node.js",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "cover": "istanbul cover _mocha"
+    "test": "jest",
+    "cover": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,12 @@
   "devDependencies": {
     "coveralls": "^3.1.0",
     "jest": "^26.6.3"
+  },
+  "jest": {
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "html"
+    ]
   }
 }
