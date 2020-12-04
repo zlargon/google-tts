@@ -8,6 +8,6 @@ var tts = require('./lib/api');
  * @param   {Number!} speed    default is 1, show = 0.24
  * @return  Promise(url: String)
  */
-module.exports = function (text, lang, speed) {
+module.exports = function (text, lang, speed, timeout) {
     return tts(text, lang, speed);
 };
