@@ -22,12 +22,11 @@
     "url": "https://github.com/zlargon/google-tts/issues"
   },
   "homepage": "https://github.com/zlargon/google-tts#readme",
-  "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "node-fetch": "^2.6.1"
   },
   "jest": {
     "coverageReporters": [
