@@ -1,67 +1,59 @@
-"use strict";
-require('es6-promise').polyfill();
-
-const key = require('../lib/key');
-const tts = require('../lib/api');
+const googleTTS = require('..');
 
 /*
  * Google TTS API has the limitation with the length of characters (200).
  * This example will show you how to cut the long characters into several small string and get multiple TTS urls.
  */
 
-const multi_tts = (text, speed, timeout) => {
-  const MAX = 200;  // Max string length
+const multi_tts = async (text, speed) => {
+  const MAX = 200; // Max string length
 
   const isSpace = (s, i) => /\s/.test(s.charAt(i));
   const lastIndexOfSpace = (s, left, right) => {
     for (let i = right; i >= left; i--) {
       if (isSpace(s, i)) return i;
     }
-    return -1;  // not found
+    return -1; // not found
   };
 
-  return key(timeout).then(key => {
-    const result = [];
-    const addResult = (text, start, end) => {
-      const str = text.slice(start, end + 1);
-      result.push({
-        text: str,
-        url: tts(str, key, 'en', speed)
-      });
-    };
+  const result = [];
+  const addResult = async (text, start, end) => {
+    const str = text.slice(start, end + 1);
+    result.push({
+      text: str,
+      url: await googleTTS(str, 'en', speed),
+    });
+  };
 
-    let start = 0;
-    for (;;) {
-
-      // check text's length
-      if (text.length - start <= MAX) {
-        addResult(text, start, text.length - 1);
-        break;  // end of text
-      }
-
-      // check whether the word is cut in the middle.
-      let end = start + MAX - 1;
-      if (isSpace(text, end) || isSpace(text, end + 1)) {
-        addResult(text, start, end);
-        start = end + 1;
-        continue;
-      }
-
-      // find last index of space
-      end = lastIndexOfSpace(text, start, end);
-      if (end === -1) {
-        throw new Error('the amount of single word is over that 200.');
-      }
-
-      // add result
-      addResult(text, start, end);
-      start = end + 1;
+  let start = 0;
+  for (;;) {
+    // check text's length
+    if (text.length - start <= MAX) {
+      await addResult(text, start, text.length - 1);
+      break; // end of text
     }
 
-    return result;
-  });
-};
+    // check whether the word is cut in the middle.
+    let end = start + MAX - 1;
+    if (isSpace(text, end) || isSpace(text, end + 1)) {
+      addResult(text, start, end);
+      start = end + 1;
+      continue;
+    }
 
+    // find last index of space
+    end = lastIndexOfSpace(text, start, end);
+    if (end === -1) {
+      throw new Error('the amount of single word is over that 200.');
+    }
+
+    // add result
+    addResult(text, start, end);
+    start = end + 1;
+  }
+
+  return result;
+};
 
 const article = `The Industrial Revolution had several roots, one of which was a commercial revolution that, beginning as far back as the sixteenth century, accompanied Europe’s expansion overseas.
 Both exports and imports showed spectacular growth, particularly in England and France.
@@ -103,15 +95,15 @@ It was such people who began to flock to the cities seeking employment and who f
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`;
 
 multi_tts(article)
-.then(result => {
-  result.forEach((o, i) => {
-    console.log(`${i+1}. ${o.text.length} characters`);
-    console.log(`${o.text}`);
-    console.log(`${o.url}\n`);
-  });
+  .then((result) => {
+    result.forEach((o, i) => {
+      console.log(`${i + 1}. ${o.text.length} characters`);
+      console.log(`${o.text}`);
+      console.log(`${o.url}\n`);
+    });
 
-  const origin = result.map(x => x.text).join('');
-  console.log('Text are the same:', origin === article);
-  console.log('Length are the same:', origin.length === article.length, `(${origin.length})`);
-})
-.catch(console.error);
+    const origin = result.map((x) => x.text).join('');
+    console.log('Text are the same:', origin === article);
+    console.log('Length are the same:', origin.length === article.length, `(${origin.length})`);
+  })
+  .catch(console.error);
