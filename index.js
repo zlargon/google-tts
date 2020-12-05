@@ -1,13 +1,18 @@
-var tts = require('./lib/api');
+const tts = require('./lib/api');
 
 /**
- * Generate "Google TTS" audio download link
+ * Generate "Google TTS" audio URL
  *
- * @param   {String}  text
- * @param   {String!} lang     default is 'en'
- * @param   {Number!} speed    default is 1, show = 0.24
- * @return  Promise(url: String)
+ * @param {string}  text
+ * @param {string?} lang     default is 'en'
+ * @param {number?} speed    default is 1, slow = 0.24
+ * @param {number?} timeout  this parameter is deprecated
+ * @return {Promise<string>} url
  */
-module.exports = function (text, lang, speed, timeout) {
-    return tts(text, lang, speed);
+module.exports = async (text, lang, speed, timeout) => {
+  if (typeof timeout !== 'undefined') {
+    console.warn('timeout parameter is deprecated');
+  }
+
+  return tts(text, lang, speed);
 };
