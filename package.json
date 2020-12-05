@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/zlargon/google-tts#readme",
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
+    "get-port": "^5.1.1",
+    "isomorphic-fetch": "^3.0.0",
+    "my-ip": "^1.1.1"
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
