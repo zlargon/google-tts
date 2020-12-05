@@ -25,7 +25,8 @@
   "dependencies": {
     "get-port": "^5.1.1",
     "isomorphic-fetch": "^3.0.0",
-    "my-ip": "^1.1.1"
+    "my-ip": "^1.1.1",
+    "npm-module-path": "^2.0.2"
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
