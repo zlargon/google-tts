@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 const tts = require('../dist/index');
 jest.setTimeout(60000);
 
@@ -9,8 +9,7 @@ describe('Long Characters', () => {
       'g as far back as the sixteenth century, accompanied Europe’s expansion overseas.';
 
     const url = await tts(text, 'en');
-    const res = await fetch(url);
-    expect(res.status).toBe(200);
+    await axios.get(url);
   });
 
   it('English: 200 characters', async () => {
@@ -19,8 +18,7 @@ describe('Long Characters', () => {
       'g as far back as the sixteenth century, accompanied Europe’s expansion overseas. exports and imports';
 
     const url = await tts(text, 'en');
-    const res = await fetch(url);
-    expect(res.status).toBe(200);
+    await axios.get(url);
   });
 
   it('English: 268 characters throw RangeError', async () => {
@@ -40,8 +38,7 @@ describe('Long Characters', () => {
       '活着很多带壳的无脊椎动物（没有脊椎的动物），不断累积的似雨的沉积颗粒会把它们掩埋起来。';
 
     const url = await tts(text, 'zh');
-    const res = await fetch(url);
-    expect(res.status).toBe(200);
+    await axios.get(url);
   });
 
   it('Chinese: 200 characters', async () => {
@@ -52,8 +49,7 @@ describe('Long Characters', () => {
       '活着很多带壳的无脊椎动物（没有脊椎的动物），不断累积的似雨的沉积颗粒会把它们掩埋起来。虽然多数的化石';
 
     const url = await tts(text, 'zh');
-    const res = await fetch(url);
-    expect(res.status).toBe(200);
+    await axios.get(url);
   });
 
   it('Chinese: 211 characters throw RangeError', async () => {
