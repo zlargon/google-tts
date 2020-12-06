@@ -21,7 +21,8 @@ const multi_tts = async (text) => {
     const str = text.slice(start, end + 1);
     result.push({
       text: str,
-      url: googleTTS.getAudioUrl(str, { lang: 'en-US' }),
+      url: googleTTS.getAudioUrl(str),
+      base64: await googleTTS.getAudioBase64(str),
     });
   };
 
@@ -36,7 +37,7 @@ const multi_tts = async (text) => {
     // check whether the word is cut in the middle.
     let end = start + MAX - 1;
     if (isSpace(text, end) || isSpace(text, end + 1)) {
-      addResult(text, start, end);
+      await addResult(text, start, end);
       start = end + 1;
       continue;
     }
@@ -48,7 +49,7 @@ const multi_tts = async (text) => {
     }
 
     // add result
-    addResult(text, start, end);
+    await addResult(text, start, end);
     start = end + 1;
   }
 
