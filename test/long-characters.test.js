@@ -1,7 +1,6 @@
-const fetch = require('isomorphic-fetch');
+const fetch = require('node-fetch');
 const tts = require('..');
 jest.setTimeout(60000);
-const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
 
 describe('Long Characters', () => {
   it('English: 180 characters', async () => {
@@ -10,7 +9,6 @@ describe('Long Characters', () => {
       'g as far back as the sixteenth century, accompanied Europe’s expansion overseas.';
 
     const url = await tts(text, 'en');
-    await sleep(1500);
     const res = await fetch(url);
     expect(res.status).toBe(200);
     await expect(fetch(url)).rejects.toThrow(/ECONN/);
@@ -22,7 +20,6 @@ describe('Long Characters', () => {
       'g as far back as the sixteenth century, accompanied Europe’s expansion overseas. exports and imports';
 
     const url = await tts(text, 'en');
-    await sleep(1500);
     const res = await fetch(url);
     expect(res.status).toBe(200);
     await expect(fetch(url)).rejects.toThrow(/ECONN/);
@@ -45,7 +42,6 @@ describe('Long Characters', () => {
       '活着很多带壳的无脊椎动物（没有脊椎的动物），不断累积的似雨的沉积颗粒会把它们掩埋起来。';
 
     const url = await tts(text, 'zh');
-    await sleep(1500);
     const res = await fetch(url);
     expect(res.status).toBe(200);
     await expect(fetch(url)).rejects.toThrow(/ECONN/);
@@ -59,7 +55,6 @@ describe('Long Characters', () => {
       '活着很多带壳的无脊椎动物（没有脊椎的动物），不断累积的似雨的沉积颗粒会把它们掩埋起来。虽然多数的化石';
 
     const url = await tts(text, 'zh');
-    await sleep(1500);
     const res = await fetch(url);
     expect(res.status).toBe(200);
     await expect(fetch(url)).rejects.toThrow(/ECONN/);

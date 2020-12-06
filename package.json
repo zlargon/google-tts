@@ -1,6 +1,6 @@
 {
   "name": "google-tts-api",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Google TTS (Text-To-Speech) for node.js",
   "main": "index.js",
   "scripts": {
@@ -24,13 +24,13 @@
   "homepage": "https://github.com/zlargon/google-tts#readme",
   "dependencies": {
     "get-port": "^5.1.1",
-    "isomorphic-fetch": "^3.0.0",
-    "my-ip": "^1.1.1",
-    "npm-module-path": "^2.0.2"
+    "is-port-reachable": "^3.0.0",
+    "my-ip": "^1.1.1"
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "node-fetch": "^2.6.1"
   },
   "jest": {
     "coverageReporters": [

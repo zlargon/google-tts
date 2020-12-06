@@ -33,4 +33,12 @@ describe('parameters', () => {
   it("speed = '123'", async () => {
     await expect(tts('test', 'en', '123')).rejects.toThrow('speed should be a number');
   });
+
+  it('timeout = 10 ms (show deprecated message)', async () => {
+    jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+    await tts('test', 'en', 1, 10);
+    expect(console.warn).toHaveBeenCalledTimes(1);
+    expect(console.warn).toHaveBeenCalledWith('timeout parameter is deprecated');
+    console.warn.mockRestore();
+  });
 });

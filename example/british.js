@@ -1,11 +1,9 @@
-"use strict";
-
-var googleTTS = require('..');
+const googleTTS = require('..');
 
 googleTTS('Hello World', 'en-gb')
-.then(function (url) {
-  console.log(url);
-})
-.catch(function (err) {
-  console.error(err.stack);
-});
+  .then((url) => {
+    console.log(url);
+  })
+  .catch((err) => {
+    console.error(err.stack);
+  });
