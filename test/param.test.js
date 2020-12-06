@@ -1,44 +1,51 @@
-const tts = require('../dist/index');
-jest.setTimeout(60000);
+const googleTTS = require('../dist/index');
 
 describe('parameters', () => {
   it('text = null', async () => {
-    await expect(tts(null)).rejects.toThrow('text should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl(null);
+    }).toThrow('text should be a string');
   });
 
   it("text = ''", async () => {
-    await expect(tts('')).rejects.toThrow('text should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl('');
+    }).toThrow('text should be a string');
   });
 
   it('text = 123', async () => {
-    await expect(tts(123)).rejects.toThrow('text should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl(123);
+    }).toThrow('text should be a string');
   });
 
   it('lang = null', async () => {
-    await expect(tts('test', null)).rejects.toThrow('lang should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl('test', { lang: null });
+    }).toThrow('lang should be a string');
   });
 
   it("lang = ''", async () => {
-    await expect(tts('test', '')).rejects.toThrow('lang should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl('test', { lang: '' });
+    }).toThrow('lang should be a string');
   });
 
   it('lang = 123 (number)', async () => {
-    await expect(tts('test', 123)).rejects.toThrow('lang should be a string');
+    expect(() => {
+      googleTTS.getAudioUrl('test', { lang: 123 });
+    }).toThrow('lang should be a string');
   });
 
-  it('speed = null', async () => {
-    await expect(tts('test', 'en', null)).rejects.toThrow('speed should be a number');
+  it('slow = null', async () => {
+    expect(() => {
+      googleTTS.getAudioUrl('test', { lang: 'en', slow: null });
+    }).toThrow('slow should be a boolean');
   });
 
-  it("speed = '123'", async () => {
-    await expect(tts('test', 'en', '123')).rejects.toThrow('speed should be a number');
-  });
-
-  it('timeout = 10 ms (show deprecated message)', async () => {
-    jest.spyOn(console, 'warn').mockImplementation(jest.fn());
-    await tts('test', 'en', 1, 10);
-    expect(console.warn).toHaveBeenCalledTimes(1);
-    expect(console.warn).toHaveBeenCalledWith('timeout parameter is deprecated');
-    console.warn.mockRestore();
+  it("slow = '123'", async () => {
+    expect(() => {
+      googleTTS.getAudioUrl('test', { lang: 'en', slow: '123' });
+    }).toThrow('slow should be a boolean');
   });
 });
