@@ -1,4 +1,4 @@
-const googleTTS = require('..');
+const googleTTS = require('../dist/index');
 
 googleTTS('Hello World', 'en-gb')
   .then((url) => {

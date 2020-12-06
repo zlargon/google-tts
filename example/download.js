@@ -3,7 +3,7 @@ const path = require('path');
 const http = require('http');
 const https = require('https');
 const urlParse = require('url').parse;
-const googleTTS = require('..');
+const googleTTS = require('../dist/index');
 
 function downloadFile(url, dest) {
   return new Promise(function (resolve, reject) {

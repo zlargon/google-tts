@@ -1,4 +1,4 @@
-const googleTTS = require('..');
+const googleTTS = require('../dist/index');
 
 /*
  * Google TTS API has the limitation with the length of characters (200).

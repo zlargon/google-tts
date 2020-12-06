@@ -1,4 +1,4 @@
-const googleTTS = require('..');
+const googleTTS = require('../dist/index');
 
 googleTTS('Hello World', 'en', 1) // speed normal = 1 (default), slow = 0.24
   .then((url) => {

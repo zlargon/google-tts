@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const tts = require('..');
+const tts = require('../dist/index');
 jest.setTimeout(60000);
 
 describe('Chinese TTS', () => {

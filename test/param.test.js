@@ -1,4 +1,4 @@
-const tts = require('..');
+const tts = require('../dist/index');
 jest.setTimeout(60000);
 
 describe('parameters', () => {

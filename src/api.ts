@@ -9,7 +9,7 @@ const host = 'https://translate.google.com';
  * @param {number?} speed  default is 1, slow = 0.24
  * @return {string} url
  */
-module.exports = (text, lang = 'en', speed = 1) => {
+module.exports = (text: string, lang = 'en', speed = 1) => {
   if (typeof text !== 'string' || text.length === 0) {
     throw new TypeError('text should be a string');
   }
