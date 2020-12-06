@@ -7,17 +7,20 @@ describe('Chinese TTS', () => {
     const url = await tts('你好', 'zh');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('你好世界', async () => {
     const url = await tts('你好世界', 'zh');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('123', async () => {
     const url = await tts('123', 'zh', 0.24);
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 });

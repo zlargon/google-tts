@@ -11,6 +11,7 @@ describe('Long Characters', () => {
     const url = await tts(text, 'en');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('English: 200 characters', async () => {
@@ -21,6 +22,7 @@ describe('Long Characters', () => {
     const url = await tts(text, 'en');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('English: 268 characters throw RangeError', async () => {
@@ -42,6 +44,7 @@ describe('Long Characters', () => {
     const url = await tts(text, 'zh');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('Chinese: 200 characters', async () => {
@@ -54,6 +57,7 @@ describe('Long Characters', () => {
     const url = await tts(text, 'zh');
     const res = await fetch(url);
     expect(res.status).toBe(200);
+    await expect(fetch(url)).rejects.toThrow(/ECONN/);
   });
 
   it('Chinese: 211 characters throw RangeError', async () => {
