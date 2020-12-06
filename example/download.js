@@ -6,7 +6,7 @@ const urlParse = require('url').parse;
 const googleTTS = require('../dist/index');
 
 function downloadFile(url, dest) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     const info = urlParse(url);
     const httpClient = info.protocol === 'https:' ? https : http;
     const options = {
@@ -45,18 +45,10 @@ function downloadFile(url, dest) {
 }
 
 // start
-googleTTS('hello')
-  .then((url) => {
-    console.log(url); // https://translate.google.com/translate_tts?...
+const url = googleTTS.getAudioUrl('hello');
+console.log(url); // https://translate.google.com/translate_tts?...
 
-    const dest = path.resolve(__dirname, 'hello.mp3'); // file destination
-    console.log('Download to ' + dest + ' ...');
-
-    return downloadFile(url, dest);
-  })
-  .then(() => {
-    console.log('Download success');
-  })
-  .catch((err) => {
-    console.error(err.stack);
-  });
+const dest = path.resolve(__dirname, 'hello.mp3'); // file destination
+console.log('Download to ' + dest + ' ...');
+downloadFile(url, dest);
+console.log('Download success');

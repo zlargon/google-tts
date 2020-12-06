@@ -5,7 +5,7 @@ const googleTTS = require('../dist/index');
  * This example will show you how to cut the long characters into several small string and get multiple TTS urls.
  */
 
-const multi_tts = async (text, speed) => {
+const multi_tts = async (text) => {
   const MAX = 200; // Max string length
 
   const isSpace = (s, i) => /\s/.test(s.charAt(i));
@@ -21,7 +21,7 @@ const multi_tts = async (text, speed) => {
     const str = text.slice(start, end + 1);
     result.push({
       text: str,
-      url: await googleTTS(str, 'en', speed),
+      url: googleTTS.getAudioUrl(str, { lang: 'en-US' }),
     });
   };
 
@@ -97,9 +97,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 multi_tts(article)
   .then((result) => {
     result.forEach((o, i) => {
-      console.log(`${i + 1}. ${o.text.length} characters`);
-      console.log(`${o.text}`);
-      console.log(`${o.url}\n`);
+      console.log(`${i + 1}. ${o.text.length} characters`, o, '\n');
     });
 
     const origin = result.map((x) => x.text).join('');

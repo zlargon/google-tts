@@ -1,9 +1,4 @@
 const googleTTS = require('../dist/index');
 
-googleTTS('Hello World', 'en-gb')
-  .then((url) => {
-    console.log(url);
-  })
-  .catch((err) => {
-    console.error(err.stack);
-  });
+const url = googleTTS.getAudioUrl('Hello World', { lang: 'en-GB' });
+console.log(url); // https://translate.google.com/translate_tts?...

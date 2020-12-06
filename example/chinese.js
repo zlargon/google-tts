@@ -1,5 +1,4 @@
 const googleTTS = require('../dist/index');
 
-googleTTS('你好世界', 'zh')
-  .then(console.log) // https://translate.google.com/translate_tts?...
-  .catch(console.error);
+const url = googleTTS.getAudioUrl('你好世界', { lang: 'zh-TW' });
+console.log(url); // https://translate.google.com/translate_tts?...
