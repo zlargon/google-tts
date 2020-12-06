@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
-    "test": "jest",
-    "cover": "jest --coverage"
+    "test": "npm run build && jest",
+    "cover": "npm run build && jest --coverage"
   },
   "repository": {
     "type": "git",
