@@ -1,51 +1,43 @@
 const googleTTS = require('../dist/index');
 
-describe('parameters', () => {
-  it('text = null', async () => {
-    expect(() => {
-      googleTTS.getAudioUrl(null);
-    }).toThrow('text should be a string');
-  });
+const TestCases = [
+  [null, {}, 'text should be a string'],
+  ['', {}, 'text should be a string'],
+  [123, {}, 'text should be a string'],
+  ['test', { lang: null }, 'lang should be a string'],
+  ['test', { lang: '' }, 'lang should be a string'],
+  ['test', { lang: 123 }, 'lang should be a string'],
+  ['test', { slow: null }, 'slow should be a boolean'],
+  ['test', { slow: 123 }, 'slow should be a boolean'],
+  ['test', { host: null }, 'host should be a string'],
+  ['test', { host: '' }, 'host should be a string'],
+];
 
-  it("text = ''", async () => {
+test('test paramater for TTS URL', async () => {
+  for (const [text, options, errorMessage] of TestCases) {
     expect(() => {
-      googleTTS.getAudioUrl('');
-    }).toThrow('text should be a string');
-  });
+      googleTTS.getAudioUrl(text, options);
+    }).toThrow(errorMessage);
+  }
+});
 
-  it('text = 123', async () => {
-    expect(() => {
-      googleTTS.getAudioUrl(123);
-    }).toThrow('text should be a string');
-  });
+test('test paramater for TTS base64', async () => {
+  for (const [text, options, errorMessage] of TestCases) {
+    await expect(() => {
+      return googleTTS.getAudioBase64(text, options);
+    }).rejects.toThrow(errorMessage);
+  }
 
-  it('lang = null', async () => {
-    expect(() => {
-      googleTTS.getAudioUrl('test', { lang: null });
-    }).toThrow('lang should be a string');
-  });
-
-  it("lang = ''", async () => {
-    expect(() => {
-      googleTTS.getAudioUrl('test', { lang: '' });
-    }).toThrow('lang should be a string');
-  });
-
-  it('lang = 123 (number)', async () => {
-    expect(() => {
-      googleTTS.getAudioUrl('test', { lang: 123 });
-    }).toThrow('lang should be a string');
-  });
-
-  it('slow = null', async () => {
-    expect(() => {
-      googleTTS.getAudioUrl('test', { lang: 'en', slow: null });
-    }).toThrow('slow should be a boolean');
-  });
-
-  it("slow = '123'", async () => {
-    expect(() => {
-      googleTTS.getAudioUrl('test', { lang: 'en', slow: '123' });
-    }).toThrow('slow should be a boolean');
-  });
+  // additional test cases
+  const additionalTestCases = [
+    ['test', { timeout: null }, 'timeout should be a positive number'],
+    ['test', { timeout: -10 }, 'timeout should be a positive number'],
+    ['test', { timeout: 10 }, 'timeout of 10ms exceeded'],
+    ['test', { lang: 'DOG-LANG' }, 'lang "DOG-LANG" might not exist'],
+  ];
+  for (const [text, options, errorMessage] of additionalTestCases) {
+    await expect(() => {
+      return googleTTS.getAudioBase64(text, options);
+    }).rejects.toThrow(errorMessage);
+  }
 });
