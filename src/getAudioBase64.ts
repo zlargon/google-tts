@@ -1,6 +1,7 @@
-import axios from 'axios';
-import assertInputTypes from './assertInputTypes';
 import type { Language } from './types';
+import assertInputTypes from './assertInputTypes';
+import axios from 'axios';
+import splitLongText from './splitLongText';
 
 interface Option {
   lang?: Language;
@@ -20,7 +21,7 @@ interface Option {
  * @param {number?}  option.timeout default is 10000 (ms)
  * @returns {Promise<string>} url
  */
-const getTtsBase64 = async (
+export const getAudioBase64 = async (
   text: string,
   {
     lang = 'en-US',
@@ -76,4 +77,50 @@ const getTtsBase64 = async (
   return result;
 };
 
-export default getTtsBase64;
+/**
+ * @typedef {object} Result
+ * @property {string} text
+ * @property {string} base64
+ */
+
+/**
+ * Split the long text into multiple short text and generate audio base64 list
+ *
+ * @param {string}   text
+ * @param {object?}  option
+ * @param {string?}  option.lang    default is "en-US"
+ * @param {boolean?} option.slow    default is false
+ * @param {string?}  option.host    default is "https://translate.google.com"
+ * @param {number?}  option.timeout default is 10000 (ms)
+ * @return {Result[]} the list with short text and audio base64
+ */
+export const getAllAudioBase64 = async (
+  text: string,
+  {
+    lang = 'en-US',
+    slow = false,
+    host = 'https://translate.google.com',
+    timeout = 10000,
+  }: Option = {}
+): Promise<{ text: string; base64: string }[]> => {
+  assertInputTypes(text, lang, slow, host);
+
+  if (typeof timeout !== 'number' || timeout <= 0) {
+    throw new TypeError('timeout should be a positive number');
+  }
+
+  const shortTextList = splitLongText(text);
+  const base64List = await Promise.all(
+    shortTextList.map((shortText) => getAudioBase64(shortText, { lang, slow, host, timeout }))
+  );
+
+  // put short text and base64 text in a list
+  const result: { text: string; base64: string }[] = [];
+  for (let i = 0; i < shortTextList.length; i++) {
+    const text = shortTextList[i];
+    const base64 = base64List[i];
+    result.push({ text, base64 });
+  }
+
+  return result;
+};
