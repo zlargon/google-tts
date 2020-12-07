@@ -1,10 +1,11 @@
 import url from 'url';
+import assertInputTypes from './assertInputTypes';
 import type { Language } from './types';
 
 interface Option {
-  host?: string;
   lang?: Language;
   slow?: boolean;
+  host?: string;
 }
 
 /**
@@ -19,26 +20,12 @@ interface Option {
  */
 const getTtsAudioUrl = (
   text: string,
-  { host = 'https://translate.google.com', lang = 'en-US', slow = false }: Option = {}
+  { lang = 'en-US', slow = false, host = 'https://translate.google.com' }: Option = {}
 ): string => {
-  if (typeof text !== 'string' || text.length === 0) {
-    throw new TypeError('text should be a string');
-  }
+  assertInputTypes(text, lang, slow, host);
 
   if (text.length > 200) {
     throw new RangeError(`text length (${text.length}) should be less than 200 characters`);
-  }
-
-  if (typeof lang !== 'string' || lang.length === 0) {
-    throw new TypeError('lang should be a string');
-  }
-
-  if (typeof slow !== 'boolean') {
-    throw new TypeError('slow should be a boolean');
-  }
-
-  if (typeof host !== 'string' || host.length === 0) {
-    throw new TypeError('host should be a string');
   }
 
   return (
