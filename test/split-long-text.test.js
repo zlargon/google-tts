@@ -46,7 +46,7 @@ const text200 =
   'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
 describe('Split long text', () => {
-  it('each the length of small text should smaller than 200', () => {
+  it('each the length of short text should shorter than 200', () => {
     const results = splitLongText(longArticle);
     for (const str of results) {
       expect(str.length <= 200).toBe(true);
@@ -57,9 +57,28 @@ describe('Split long text', () => {
     expect(splitLongText(text200)).toStrictEqual([text200]);
   });
 
-  it('the single word is too long to split into small text', () => {
-    expect(() => splitLongText(text200, 100)).toThrow(
-      'The word is too long to split into a small text:'
+  it('the single word is too long to split into short text', () => {
+    expect(() => splitLongText(text200, { maxLength: 100 })).toThrow(
+      'The word is too long to split into a short text:'
     );
+  });
+
+  it('split long chinese text into short text', () => {
+    const longChineseText =
+      '如果想想生物在死之后被完全摧毁的种种方式，能够这样频繁出现化石是一件很令人惊讶的事。食腐动物和细菌的' +
+      '破坏、化学性腐烂、腐蚀以及其它地质因素都会非常不利于保存。不过，如果生物体碰巧具有矿化的骨骼并且死于' +
+      '可以迅速被沉积物掩埋的地方，摆脱被完全摧毁的几率便会大大增加。海底通常就具有上述的两方面条件，这里生' +
+      '活着很多带壳的无脊椎动物（没有脊椎的动物），不断累积的似雨的沉积颗粒会把它们掩埋起来。虽然多数的化石' +
+      '是在海洋沉积岩中发现的';
+
+    // no additional split punctuation
+    expect(() => splitLongText(longChineseText)).toThrow(
+      'The word is too long to split into a short text:'
+    );
+
+    // add additional split punctuation
+    const results = splitLongText(longChineseText, { splitPunct: '，、。（）' });
+    expect(results.length).toBe(2);
+    expect(results[1]).toBe('虽然多数的化石是在海洋沉积岩中发现的');
   });
 });
