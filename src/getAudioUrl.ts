@@ -1,6 +1,7 @@
-import url from 'url';
-import assertInputTypes from './assertInputTypes';
 import type { Language } from './types';
+import assertInputTypes from './assertInputTypes';
+import splitLongText from './splitLongText';
+import url from 'url';
 
 interface Option {
   lang?: Language;
@@ -18,7 +19,7 @@ interface Option {
  * @param {string?}  option.host  default is "https://translate.google.com"
  * @return {string} url
  */
-const getTtsAudioUrl = (
+export const getAudioUrl = (
   text: string,
   { lang = 'en-US', slow = false, host = 'https://translate.google.com' }: Option = {}
 ): string => {
@@ -47,4 +48,30 @@ const getTtsAudioUrl = (
   );
 };
 
-export default getTtsAudioUrl;
+/**
+ * @typedef {object} Result
+ * @property {string} text
+ * @property {string} url
+ */
+
+/**
+ * Split the long text into multiple short text and generate audio URL list
+ *
+ * @param {string}   text
+ * @param {object?}  option
+ * @param {string?}  option.lang  default is "en-US"
+ * @param {boolean?} option.slow  default is false
+ * @param {string?}  option.host  default is "https://translate.google.com"
+ * @return {Result[]} the list with short text and audio url
+ */
+export const getAllAudioUrls = (
+  text: string,
+  { lang = 'en-US', slow = false, host = 'https://translate.google.com' }: Option = {}
+): { text: string; url: string }[] => {
+  assertInputTypes(text, lang, slow, host);
+
+  return splitLongText(text).map((shortText) => ({
+    text: shortText,
+    url: getAudioUrl(shortText, { lang, slow, host }),
+  }));
+};

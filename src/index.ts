@@ -1,4 +1,4 @@
-import getAudioUrl from './getAudioUrl';
+import { getAudioUrl, getAllAudioUrls } from './getAudioUrl';
 import getAudioBase64 from './getAudioBase64';
 
-export { getAudioUrl, getAudioBase64 };
+export { getAudioUrl, getAllAudioUrls, getAudioBase64 };
