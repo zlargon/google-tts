@@ -15,29 +15,36 @@ const TestCases = [
 
 test('test paramater for TTS URL', async () => {
   for (const [text, options, errorMessage] of TestCases) {
+    // 1. audio url
     expect(() => {
       googleTTS.getAudioUrl(text, options);
+    }).toThrow(errorMessage);
+
+    // 2. all audio url
+    expect(() => {
+      googleTTS.getAllAudioUrls(text, options);
     }).toThrow(errorMessage);
   }
 });
 
 test('test paramater for TTS base64', async () => {
-  for (const [text, options, errorMessage] of TestCases) {
-    await expect(() => {
-      return googleTTS.getAudioBase64(text, options);
-    }).rejects.toThrow(errorMessage);
-  }
-
-  // additional test cases
-  const additionalTestCases = [
+  const Base64TestCases = [
+    ...TestCases,
     ['test', { timeout: null }, 'timeout should be a positive number'],
     ['test', { timeout: -10 }, 'timeout should be a positive number'],
     ['test', { timeout: 10 }, 'timeout of 10ms exceeded'],
     ['test', { lang: 'DOG-LANG' }, 'lang "DOG-LANG" might not exist'],
   ];
-  for (const [text, options, errorMessage] of additionalTestCases) {
+
+  for (const [text, options, errorMessage] of Base64TestCases) {
+    // 1. audio base64
     await expect(() => {
       return googleTTS.getAudioBase64(text, options);
+    }).rejects.toThrow(errorMessage);
+
+    // 2. all audio base64
+    await expect(() => {
+      return googleTTS.getAllAudioBase64(text, options);
     }).rejects.toThrow(errorMessage);
   }
 });
