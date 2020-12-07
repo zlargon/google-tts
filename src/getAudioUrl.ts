@@ -48,6 +48,10 @@ export const getAudioUrl = (
   );
 };
 
+interface LongTextOption extends Option {
+  splitPunct?: string;
+}
+
 /**
  * @typedef {object} Result
  * @property {string} text
@@ -59,18 +63,28 @@ export const getAudioUrl = (
  *
  * @param {string}   text
  * @param {object?}  option
- * @param {string?}  option.lang  default is "en-US"
- * @param {boolean?} option.slow  default is false
- * @param {string?}  option.host  default is "https://translate.google.com"
+ * @param {string?}  option.lang        default is "en-US"
+ * @param {boolean?} option.slow        default is false
+ * @param {string?}  option.host        default is "https://translate.google.com"
+ * @param {string?}  option.splitPunct  split punctuation
  * @return {Result[]} the list with short text and audio url
  */
 export const getAllAudioUrls = (
   text: string,
-  { lang = 'en-US', slow = false, host = 'https://translate.google.com' }: Option = {}
+  {
+    lang = 'en-US',
+    slow = false,
+    host = 'https://translate.google.com',
+    splitPunct = '',
+  }: LongTextOption = {}
 ): { text: string; url: string }[] => {
   assertInputTypes(text, lang, slow, host);
 
-  return splitLongText(text).map((shortText) => ({
+  if (typeof splitPunct !== 'string') {
+    throw new TypeError('splitPunct should be a string');
+  }
+
+  return splitLongText(text, { splitPunct }).map((shortText) => ({
     text: shortText,
     url: getAudioUrl(shortText, { lang, slow, host }),
   }));

@@ -138,7 +138,7 @@ describe('Long Text', () => {
 
   it('Chinese: 211 characters', async () => {
     const errorMessage = 'should be less than 200 characters';
-    const option = { lang: 'zh' };
+    const option = { lang: 'zh', splitPunct: '，、。（）' };
     const text =
       '如果想想生物在死之后被完全摧毁的种种方式，能够这样频繁出现化石是一件很令人惊讶的事。食腐动物和细菌的' +
       '破坏、化学性腐烂、腐蚀以及其它地质因素都会非常不利于保存。不过，如果生物体碰巧具有矿化的骨骼并且死于' +
@@ -151,23 +151,21 @@ describe('Long Text', () => {
       googleTTS.getAudioUrl(text, option);
     }).toThrow(errorMessage);
 
-    // TODO: split by the punctuation
     // 2. all audio URLs
-    // let resultList = googleTTS.getAllAudioUrls(text, option);
-    // expect(resultList.length).toBe(2);
-    // await Promise.all(resultList.map(({ url }) => axios.get(url)));
+    let resultList = googleTTS.getAllAudioUrls(text, option);
+    expect(resultList.length).toBe(2);
+    await Promise.all(resultList.map(({ url }) => axios.get(url)));
 
     // 3. audio base64
     await expect(() => {
       return googleTTS.getAudioBase64(text, option);
     }).rejects.toThrow(errorMessage);
 
-    // TODO: split by the punctuation
     // 4. all audio base64
-    // resultList = await googleTTS.getAllAudioBase64(text, option);
-    // expect(resultList.length).toBe(2);
-    // for (const { base64 } of resultList) {
-    //   expect(isBase64(base64)).toBe(true);
-    // }
+    resultList = await googleTTS.getAllAudioBase64(text, option);
+    expect(resultList.length).toBe(2);
+    for (const { base64 } of resultList) {
+      expect(isBase64(base64)).toBe(true);
+    }
   });
 });

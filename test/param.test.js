@@ -14,15 +14,15 @@ const TestCases = [
 ];
 
 test('test paramater for TTS URL', async () => {
-  for (const [text, options, errorMessage] of TestCases) {
+  for (const [text, option, errorMessage] of TestCases) {
     // 1. audio url
     expect(() => {
-      googleTTS.getAudioUrl(text, options);
+      googleTTS.getAudioUrl(text, option);
     }).toThrow(errorMessage);
 
     // 2. all audio url
     expect(() => {
-      googleTTS.getAllAudioUrls(text, options);
+      googleTTS.getAllAudioUrls(text, option);
     }).toThrow(errorMessage);
   }
 });
@@ -36,15 +36,30 @@ test('test paramater for TTS base64', async () => {
     ['test', { lang: 'DOG-LANG' }, 'lang "DOG-LANG" might not exist'],
   ];
 
-  for (const [text, options, errorMessage] of Base64TestCases) {
+  for (const [text, option, errorMessage] of Base64TestCases) {
     // 1. audio base64
     await expect(() => {
-      return googleTTS.getAudioBase64(text, options);
+      return googleTTS.getAudioBase64(text, option);
     }).rejects.toThrow(errorMessage);
 
     // 2. all audio base64
     await expect(() => {
-      return googleTTS.getAllAudioBase64(text, options);
+      return googleTTS.getAllAudioBase64(text, option);
     }).rejects.toThrow(errorMessage);
   }
+});
+
+test('test splitPunct option for all URL and all base64', async () => {
+  const option = { splitPunct: null };
+  const errorMessage = 'splitPunct should be a string';
+
+  // 1. all audio url
+  expect(() => {
+    googleTTS.getAllAudioUrls('test', option);
+  }).toThrow(errorMessage);
+
+  // 2. all audio base64
+  await expect(() => {
+    return googleTTS.getAllAudioBase64('test', option);
+  }).rejects.toThrow(errorMessage);
 });

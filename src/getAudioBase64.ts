@@ -77,6 +77,10 @@ export const getAudioBase64 = async (
   return result;
 };
 
+interface LongTextOption extends Option {
+  splitPunct?: string;
+}
+
 /**
  * @typedef {object} Result
  * @property {string} text
@@ -88,10 +92,11 @@ export const getAudioBase64 = async (
  *
  * @param {string}   text
  * @param {object?}  option
- * @param {string?}  option.lang    default is "en-US"
- * @param {boolean?} option.slow    default is false
- * @param {string?}  option.host    default is "https://translate.google.com"
- * @param {number?}  option.timeout default is 10000 (ms)
+ * @param {string?}  option.lang        default is "en-US"
+ * @param {boolean?} option.slow        default is false
+ * @param {string?}  option.host        default is "https://translate.google.com"
+ * @param {string?}  option.splitPunct  split punctuation
+ * @param {number?}  option.timeout     default is 10000 (ms)
  * @return {Result[]} the list with short text and audio base64
  */
 export const getAllAudioBase64 = async (
@@ -100,16 +105,21 @@ export const getAllAudioBase64 = async (
     lang = 'en-US',
     slow = false,
     host = 'https://translate.google.com',
+    splitPunct = '',
     timeout = 10000,
-  }: Option = {}
+  }: LongTextOption = {}
 ): Promise<{ text: string; base64: string }[]> => {
   assertInputTypes(text, lang, slow, host);
+
+  if (typeof splitPunct !== 'string') {
+    throw new TypeError('splitPunct should be a string');
+  }
 
   if (typeof timeout !== 'number' || timeout <= 0) {
     throw new TypeError('timeout should be a positive number');
   }
 
-  const shortTextList = splitLongText(text);
+  const shortTextList = splitLongText(text, { splitPunct });
   const base64List = await Promise.all(
     shortTextList.map((shortText) => getAudioBase64(shortText, { lang, slow, host, timeout }))
   );
