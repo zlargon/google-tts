@@ -1,3 +1,5 @@
 coverage
-appveyor.yml
+example
+src
+test
 .travis.yml
