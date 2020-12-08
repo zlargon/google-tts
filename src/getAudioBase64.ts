@@ -37,7 +37,9 @@ export const getAudioBase64 = async (
   }
 
   if (text.length > 200) {
-    throw new RangeError(`text length (${text.length}) should be less than 200 characters`);
+    throw new RangeError(
+      `text length (${text.length}) should be less than 200 characters. Try "getAllAudioBase64(text, [option])" for long text.`
+    );
   }
 
   const res = await axios({

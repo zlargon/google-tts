@@ -26,7 +26,9 @@ export const getAudioUrl = (
   assertInputTypes(text, lang, slow, host);
 
   if (text.length > 200) {
-    throw new RangeError(`text length (${text.length}) should be less than 200 characters`);
+    throw new RangeError(
+      `text length (${text.length}) should be less than 200 characters. Try "getAllAudioUrls(text, [option])" for long text.`
+    );
   }
 
   return (

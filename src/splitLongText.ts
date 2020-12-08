@@ -60,7 +60,11 @@ const splitLongText = (
     end = lastIndexOfSpaceOrPunct(text, start, end);
     if (end === -1) {
       const str = text.slice(start, start + maxLength);
-      throw new Error(`The word is too long to split into a short text:\n ${str} ...`);
+      throw new Error(
+        'The word is too long to split into a short text:' +
+          `\n${str} ...` +
+          '\n\nTry the option "splitPunct" to split the text by punctuation.'
+      );
     }
 
     // add result
