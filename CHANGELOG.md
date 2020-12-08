@@ -1,3 +1,37 @@
+## 2.0.0 (Dec 8, 2020)
+
+- Add new APIs (Please see the **Break Change** below)
+  - `getAudioUrl`
+  - `getAudioBase64`
+  - `getAllAudioUrls` (for long text)
+  - `getAllAudioBase64` (for long text)
+- Support new Google TTS API to get audio Base64 text ([#35](https://github.com/zlargon/google-tts/issues/35))
+- Support long text input: `getAllAudioUrls` and `getAllAudioBase64` ([#30](https://github.com/zlargon/google-tts/issues/30))
+- Support changing the `host` in option ([#16](https://github.com/zlargon/google-tts/issues/16))
+- Support Typescript
+- Add dependency [axios](https://github.com/axios/axios)
+
+### **Break Change from 0.x.x to 2.x.x**
+
+`googleTTS()` is changed to `googleTTS.getAudioUrl()`.
+
+```js
+const googleTTS = require('google-tts-api');
+
+// Before version 0.0.6
+// Original googleTTS is a promise function
+const url = await googleTTS('Hello World', 'en', 1);
+
+// After version 2.0.0
+// Now googleTTS is an object with 4 new methods (getAudioUrl, getAudioBase64, getAllAudioUrls, getAllAudioBase64)
+// googleTTS.getAudioUrl is a non-promise function
+const url = googleTTS.getAudioUrl('Hello World', {
+  lang: 'en-US',
+  slow: false, // speed (number) is changed to slow (boolean)
+  host: 'https://translate.google.com', // allow to change the host
+});
+```
+
 ## 0.0.6 (Dec 5, 2020)
 
 - `timeout` parameter is deprecated.
