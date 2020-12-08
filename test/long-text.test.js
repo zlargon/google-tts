@@ -16,7 +16,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, url }]);
+    expect(resultList).toStrictEqual([{ shortText: text, url }]);
 
     // 3. audio base64
     const base64 = await googleTTS.getAudioBase64(text);
@@ -25,7 +25,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, base64 }]);
+    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
   });
 
   it('English: 200 characters', async () => {
@@ -40,7 +40,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, url }]);
+    expect(resultList).toStrictEqual([{ shortText: text, url }]);
 
     // 3. audio base64
     const base64 = await googleTTS.getAudioBase64(text);
@@ -49,7 +49,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, base64 }]);
+    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
   });
 
   it('English: 268 characters', async () => {
@@ -67,6 +67,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text);
     expect(resultList.length).toBe(2);
+    expect(resultList.map((item) => item.shortText).join('')).toBe(text);
     await Promise.all(resultList.map(({ url }) => axios.get(url)));
 
     // 3. audio base64
@@ -77,6 +78,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text);
     expect(resultList.length).toBe(2);
+    expect(resultList.map((item) => item.shortText).join('')).toBe(text);
     for (const { base64 } of resultList) {
       expect(isBase64(base64)).toBe(true);
     }
@@ -97,7 +99,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, url }]);
+    expect(resultList).toStrictEqual([{ shortText: text, url }]);
 
     // 3. audio base64
     const base64 = await googleTTS.getAudioBase64(text, option);
@@ -106,7 +108,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, base64 }]);
+    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
   });
 
   it('Chinese: 200 characters', async () => {
@@ -124,7 +126,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, url }]);
+    expect(resultList).toStrictEqual([{ shortText: text, url }]);
 
     // 3. audio base64
     const base64 = await googleTTS.getAudioBase64(text, option);
@@ -133,7 +135,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ text, base64 }]);
+    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
   });
 
   it('Chinese: 211 characters', async () => {
@@ -154,6 +156,7 @@ describe('Long Text', () => {
     // 2. all audio URLs
     let resultList = googleTTS.getAllAudioUrls(text, option);
     expect(resultList.length).toBe(2);
+    expect(resultList.map((item) => item.shortText).join('')).toBe(text);
     await Promise.all(resultList.map(({ url }) => axios.get(url)));
 
     // 3. audio base64
@@ -164,6 +167,7 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text, option);
     expect(resultList.length).toBe(2);
+    expect(resultList.map((item) => item.shortText).join('')).toBe(text);
     for (const { base64 } of resultList) {
       expect(isBase64(base64)).toBe(true);
     }

@@ -44,11 +44,7 @@ It was such people who began to flock to the cities seeking employment and who f
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`;
 
-const result = googleTTS.getAllAudioUrls(article);
-result.forEach((o, i) => {
-  console.log(`${i + 1}. ${o.text.length} characters`, o, '\n');
+const results = googleTTS.getAllAudioUrls(article);
+results.forEach((item, i) => {
+  console.log(`${i + 1}. ${item.shortText.length} characters`, item, '\n');
 });
-
-const origin = result.map((x) => x.text).join('');
-console.log('Text are the same:', origin === article);
-console.log('Length are the same:', origin.length === article.length, `(${origin.length})`);

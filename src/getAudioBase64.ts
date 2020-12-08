@@ -83,7 +83,7 @@ interface LongTextOption extends Option {
 
 /**
  * @typedef {object} Result
- * @property {string} text
+ * @property {string} shortText
  * @property {string} base64
  */
 
@@ -108,7 +108,7 @@ export const getAllAudioBase64 = async (
     splitPunct = '',
     timeout = 10000,
   }: LongTextOption = {}
-): Promise<{ text: string; base64: string }[]> => {
+): Promise<{ shortText: string; base64: string }[]> => {
   assertInputTypes(text, lang, slow, host);
 
   if (typeof splitPunct !== 'string') {
@@ -125,11 +125,11 @@ export const getAllAudioBase64 = async (
   );
 
   // put short text and base64 text in a list
-  const result: { text: string; base64: string }[] = [];
+  const result: { shortText: string; base64: string }[] = [];
   for (let i = 0; i < shortTextList.length; i++) {
-    const text = shortTextList[i];
+    const shortText = shortTextList[i];
     const base64 = base64List[i];
-    result.push({ text, base64 });
+    result.push({ shortText, base64 });
   }
 
   return result;

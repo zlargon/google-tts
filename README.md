@@ -91,8 +91,8 @@ const results = googleTTS.getAllAudioUrls('LONG_TEXT_...', {
 });
 console.log(results);
 // [
-//   { text: '...', url: '...' },
-//   { text: '...', url: '...' },
+//   { shortText: '...', url: '...' },
+//   { shortText: '...', url: '...' },
 //   ...
 // ];
 ```
@@ -122,8 +122,8 @@ googleTTS
   })
   .then(console.log)
   // [
-  //   { text: '...', base64: '...' },
-  //   { text: '...', base64: '...' },
+  //   { shortText: '...', base64: '...' },
+  //   { shortText: '...', base64: '...' },
   //   ...
   // ];
   .catch(console.error);

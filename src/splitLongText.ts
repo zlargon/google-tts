@@ -17,7 +17,7 @@ interface Option {
  * @param {object?} option
  * @param {number?} option.maxLength  default is 200
  * @param {string?} option.splitPunct default is ''
- * @returns {string[]} string list
+ * @returns {string[]} short text list
  */
 const splitLongText = (
   text: string,

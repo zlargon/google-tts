@@ -54,7 +54,7 @@ interface LongTextOption extends Option {
 
 /**
  * @typedef {object} Result
- * @property {string} text
+ * @property {string} shortText
  * @property {string} url
  */
 
@@ -77,7 +77,7 @@ export const getAllAudioUrls = (
     host = 'https://translate.google.com',
     splitPunct = '',
   }: LongTextOption = {}
-): { text: string; url: string }[] => {
+): { shortText: string; url: string }[] => {
   assertInputTypes(text, lang, slow, host);
 
   if (typeof splitPunct !== 'string') {
@@ -85,7 +85,7 @@ export const getAllAudioUrls = (
   }
 
   return splitLongText(text, { splitPunct }).map((shortText) => ({
-    text: shortText,
+    shortText,
     url: getAudioUrl(shortText, { lang, slow, host }),
   }));
 };
