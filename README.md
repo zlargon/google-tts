@@ -26,122 +26,94 @@ Please see [CHANGELOG](https://github.com/zlargon/google-tts/blob/master/CHANGEL
 ### 1. `getAudioUrl(text, [option])`
 
 - Available options: `lang`, `slow`, `host`
+- Example:
+   ```js
+   const googleTTS = require('google-tts-api');
 
-<details><summary>See Example</summary>
-<p>
-
-```js
-const googleTTS = require('google-tts-api');
-
-// get audio URL
-const url = googleTTS.getAudioUrl('Hello World', {
-  lang: 'en-US',
-  slow: false,
-  host: 'https://translate.google.com',
-});
-console.log(url); // https://translate.google.com/translate_tts?...
-```
-
-</p>
-</details>
-<br/>
+   // get audio URL
+   const url = googleTTS.getAudioUrl('Hello World', {
+     lang: 'en-US',
+     slow: false,
+     host: 'https://translate.google.com',
+   });
+   console.log(url); // https://translate.google.com/translate_tts?...
+   ```
 
 ### 2. `getAudioBase64(text, [option])`
 
 - This is a promise function
 - Available options: `lang`, `slow`, `host`, `timeout`
+- Example:
+   ```js
+   const googleTTS = require('google-tts-api');
 
-<details><summary>See Example</summary>
-<p>
+   // get base64 text
+   googleTTS
+     .getAudioBase64('Hello World', {
+       lang: 'en-US',
+       slow: false,
+       host: 'https://translate.google.com',
+       timeout: 10000,
+     })
+     .then(console.log) // base64 text
+     .catch(console.error);
+   ```
 
-```js
-const googleTTS = require('google-tts-api');
-
-// get base64 text
-googleTTS
-  .getAudioBase64('Hello World', {
-    lang: 'en-US',
-    slow: false,
-    host: 'https://translate.google.com',
-    timeout: 10000,
-  })
-  .then(console.log) // base64 text
-  .catch(console.error);
-```
-
-</p>
-</details>
-<br/>
-
-### 3. `getAllAudioUrl(text, [option])` (For text longer than 200 characters)
+### 3. `getAllAudioUrls(text, [option])` (For text longer than 200 characters)
 
 - Available options: `lang`, `slow`, `host`, `splitPunct`
+- Example:
+   ```js
+   const googleTTS = require('google-tts-api');
 
-<details><summary>See Example</summary>
-<p>
-
-```js
-const googleTTS = require('google-tts-api');
-
-const results = googleTTS.getAllAudioUrls('LONG_TEXT_...', {
-  lang: 'en-US',
-  slow: false,
-  host: 'https://translate.google.com',
-  splitPunct: ',.?',
-});
-console.log(results);
-// [
-//   { shortText: '...', url: '...' },
-//   { shortText: '...', url: '...' },
-//   ...
-// ];
-```
-
-</p>
-</details>
-<br/>
+   const results = googleTTS.getAllAudioUrls('LONG_TEXT_...', {
+     lang: 'en-US',
+     slow: false,
+     host: 'https://translate.google.com',
+     splitPunct: ',.?',
+   });
+   console.log(results);
+   // [
+   //   { shortText: '...', url: '...' },
+   //   { shortText: '...', url: '...' },
+   //   ...
+   // ];
+   ```
 
 ### 4. `getAllAudioBase64(text, [option])` (For text longer than 200 characters)
 
 - This is a promise function
 - Available options: `lang`, `slow`, `host`, `timeout`, `splitPunct`
+- Example:
+   ```js
+   const googleTTS = require('google-tts-api');
 
-<details><summary>See Example</summary>
-<p>
-
-```js
-const googleTTS = require('google-tts-api');
-
-googleTTS
-  .getAllAudioBase64('LONG_TEXT_...', {
-    lang: 'en-US',
-    slow: false,
-    host: 'https://translate.google.com',
-    timeout: 10000,
-    splitPunct: ',.?',
-  })
-  .then(console.log)
-  // [
-  //   { shortText: '...', base64: '...' },
-  //   { shortText: '...', base64: '...' },
-  //   ...
-  // ];
-  .catch(console.error);
-```
-
-</p>
-</details>
-<br/>
+   googleTTS
+     .getAllAudioBase64('LONG_TEXT_...', {
+       lang: 'en-US',
+       slow: false,
+       host: 'https://translate.google.com',
+       timeout: 10000,
+       splitPunct: ',.?',
+     })
+     .then(console.log)
+     // [
+     //   { shortText: '...', base64: '...' },
+     //   { shortText: '...', base64: '...' },
+     //   ...
+     // ];
+     .catch(console.error);
+   ```
 
 ## Options (All options are optional)
 
-| Option       | Type      | Default                      | Description                                                                                                                   |
-| ------------ | --------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `lang`       | `string`  | en-US                        | See all avaiable language code at https://cloud.google.com/speech/docs/languages                                              |
-| `slow`       | `boolean` | false                        | Use the slow audio speed if set `slow` to `true`                                                                              |
-| `host`       | `string`  | https://translate.google.com | You can change the `host` if the default host could not work in your region (e.g. https://translate.google.com.cn).           |
-| `timeout`    | `number`  | 10000 (ms)                   | (Only for `getAudioBase64` and `getAllAudioBase64`) Set timeout for the HTTP request.                                         |
-| `splitPunct` | `string`  |                              | (Only for `getAllAudioUrl` and `getAllAudioBase64`) Set the punctuation to split the long text to short text. (e.g. "，、。") |
+| Option       | Type      | Default                      | Description                                                                                                                    |
+| ------------ | --------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `lang`       | `string`  | en-US                        | See all avaiable language code at https://cloud.google.com/speech/docs/languages                                               |
+| `slow`       | `boolean` | false                        | Use the slow audio speed if set `slow` to `true`                                                                               |
+| `host`       | `string`  | https://translate.google.com | You can change the `host` if the default host could not work in your region (e.g. https://translate.google.com.cn).            |
+| `timeout`    | `number`  | 10000 (ms)                   | (Only for `getAudioBase64` and `getAllAudioBase64`) Set timeout for the HTTP request.                                          |
+| `splitPunct` | `string`  |                              | (Only for `getAllAudioUrls` and `getAllAudioBase64`) Set the punctuation to split the long text to short text. (e.g. "，、。") |
 
 [More Examples](https://github.com/zlargon/google-tts/tree/master/example)
 
