@@ -1,10 +1,5 @@
 const googleTTS = require('../dist/index');
 
-/*
- * Google TTS API has the limitation with the length of characters (200).
- * This example shows you how to cut the long characters into several small string and get multiple TTS urls.
- */
-
 const article = `The Industrial Revolution had several roots, one of which was a commercial revolution that, beginning as far back as the sixteenth century, accompanied Europe’s expansion overseas.
 Both exports and imports showed spectacular growth, particularly in England and France.
 An increasingly larger portion of the stepped-up commercial activity was the result of trade with overseas colonies.
@@ -44,6 +39,13 @@ It was such people who began to flock to the cities seeking employment and who f
 
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`;
 
+// 1. all audio URLs
+const results = googleTTS.getAllAudioUrls(article);
+results.forEach((item, i) => {
+  console.log(`${i + 1}. ${item.shortText.length} characters`, item, '\n');
+});
+
+// 2. all audio base64 texts
 googleTTS.getAllAudioBase64(article).then((results) => {
   results.forEach((item, i) => {
     console.log(`${i + 1}. ${item.shortText.length} characters`, item, '\n');
