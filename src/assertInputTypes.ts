@@ -1,6 +1,6 @@
-import type { Language } from './types';
+import type { LanguageCode } from './languages';
 
-const assertInputTypes = (text: string, lang: Language, slow: boolean, host: string) => {
+const assertInputTypes = (text: string, lang: LanguageCode, slow: boolean, host: string) => {
   if (typeof text !== 'string' || text.length === 0) {
     throw new TypeError('text should be a string');
   }

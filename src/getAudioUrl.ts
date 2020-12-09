@@ -1,10 +1,10 @@
-import type { Language } from './types';
+import type { LanguageCode } from './languages';
 import assertInputTypes from './assertInputTypes';
 import splitLongText from './splitLongText';
 import url from 'url';
 
 interface Option {
-  lang?: Language;
+  lang?: LanguageCode;
   slow?: boolean;
   host?: string;
 }

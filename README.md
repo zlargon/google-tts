@@ -105,6 +105,27 @@ Please see [CHANGELOG](https://github.com/zlargon/google-tts/blob/master/CHANGEL
      .catch(console.error);
    ```
 
+### 5. `languages`
+
+- `.get()` returns a list of known language codes that work
+- `findByCode` or `findByName` to search within list
+- Example:
+   ```
+   const googleTTS = require('google-tts-api');
+
+   const list = googleTTS.languages.get();
+   console.log(list) // [{ code: '...', name: '...' }, ...]
+
+   const english = googleTTS.languages.findByCode('en-US');
+   console.log(english) // { code: 'en-US', name: 'English (United States)' }
+
+   const english = googleTTS.languages.findByName('English (United States)');
+   console.log(english) // { code: 'en-US', name: 'English (United States)' }
+
+   // use code to make request
+   const url = googleTTS.getAudioUrl('Hello, world!', { lang: english.code });
+   ```
+
 ## Options (All options are optional)
 
 | Option       | Type      | Default                      | Description                                                                                                                    |
