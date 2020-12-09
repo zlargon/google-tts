@@ -1,10 +1,14 @@
 ## 2.0.0 (Dec 8, 2020)
 
 - Add new APIs (Please see the **Break Change** below)
-  - `getAudioUrl`
-  - `getAudioBase64`
-  - `getAllAudioUrls` (for long text)
-  - `getAllAudioBase64` (for long text)
+
+  | Method              | Options (optional)                              | Return Type                                         | Handle Long Text |
+  | ------------------- | ----------------------------------------------- | --------------------------------------------------- | :--------------: |
+  | `getAudioUrl`       | `lang`, `slow`, `host`                          | `string`                                            |                  |
+  | `getAudioBase64`    | `lang`, `slow`, `host`, `timeout`               | `Promise<string>`                                   |                  |
+  | `getAllAudioUrls`   | `lang`, `slow`, `host`, `splitPunct`            | `{ shortText: string; url: string; }[]`             |        ✅        |
+  | `getAllAudioBase64` | `lang`, `slow`, `host`, `timeout`, `splitPunct` | `Promise<{ shortText: string; base64: string; }[]>` |        ✅        |
+
 - Support new Google TTS API to get audio Base64 text ([#35](https://github.com/zlargon/google-tts/issues/35))
 - Support long text input: `getAllAudioUrls` and `getAllAudioBase64` ([#30](https://github.com/zlargon/google-tts/issues/30))
 - Support changing the `host` in option ([#16](https://github.com/zlargon/google-tts/issues/16))
