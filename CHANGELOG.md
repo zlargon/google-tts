@@ -1,3 +1,7 @@
+## 2.0.1 (Jan 6, 2021)
+
+- Fix the vulnerabilities by upgrading the dependencies (#42, #44)
+
 ## 2.0.0 (Dec 8, 2020)
 
 - Add new APIs (Please see the **Break Change** below)
