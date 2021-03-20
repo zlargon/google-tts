@@ -1,10 +1,9 @@
-import type { Language } from './types';
 import assertInputTypes from './assertInputTypes';
 import splitLongText from './splitLongText';
 import url from 'url';
 
 interface Option {
-  lang?: Language;
+  lang?: string;
   slow?: boolean;
   host?: string;
 }

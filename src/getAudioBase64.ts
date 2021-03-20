@@ -1,10 +1,9 @@
-import type { Language } from './types';
 import assertInputTypes from './assertInputTypes';
 import axios from 'axios';
 import splitLongText from './splitLongText';
 
 interface Option {
-  lang?: Language;
+  lang?: string;
   slow?: boolean;
   host?: string;
   timeout?: number;
