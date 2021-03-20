@@ -25,7 +25,10 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
+
+    const firstResult = resultList[0];
+    expect(firstResult.shortText).toBe(text);
+    expect(isBase64(firstResult.base64)).toBe(true);
   });
 
   it('English: 200 characters', async () => {
@@ -49,7 +52,10 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
+
+    const firstResult = resultList[0];
+    expect(firstResult.shortText).toBe(text);
+    expect(isBase64(firstResult.base64)).toBe(true);
   });
 
   it('English: 268 characters', async () => {
@@ -108,7 +114,10 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
+
+    const firstResult = resultList[0];
+    expect(firstResult.shortText).toBe(text);
+    expect(isBase64(firstResult.base64)).toBe(true);
   });
 
   it('Chinese: 200 characters', async () => {
@@ -135,7 +144,10 @@ describe('Long Text', () => {
     // 4. all audio base64
     resultList = await googleTTS.getAllAudioBase64(text, option);
     expect(resultList.length).toBe(1);
-    expect(resultList).toStrictEqual([{ shortText: text, base64 }]);
+
+    const firstResult = resultList[0];
+    expect(firstResult.shortText).toBe(text);
+    expect(isBase64(firstResult.base64)).toBe(true);
   });
 
   it('Chinese: 211 characters', async () => {
