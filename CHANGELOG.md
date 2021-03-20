@@ -1,3 +1,8 @@
+## 2.0.2 (Mar 20, 2021)
+
+- Change default language to `en` ([#45](https://github.com/zlargon/google-tts/issues/45))
+- Typescript: Remove type `Language` since API doesn't fully support language codes listed in the document
+
 ## 2.0.1 (Jan 6, 2021)
 
 - Fix the vulnerabilities by upgrading the dependencies (#42, #44)
