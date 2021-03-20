@@ -38,6 +38,7 @@ export type Language =
   | 'da-DK'
   | 'nl-BE'
   | 'nl-NL'
+  | 'en'
   | 'en-AU'
   | 'en-CA'
   | 'en-GH'

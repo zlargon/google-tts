@@ -14,14 +14,14 @@ interface Option {
  *
  * @param {string}   text         length should be less than 200 characters
  * @param {object?}  option
- * @param {string?}  option.lang  default is "en-US"
+ * @param {string?}  option.lang  default is "en"
  * @param {boolean?} option.slow  default is false
  * @param {string?}  option.host  default is "https://translate.google.com"
  * @return {string} url
  */
 export const getAudioUrl = (
   text: string,
-  { lang = 'en-US', slow = false, host = 'https://translate.google.com' }: Option = {}
+  { lang = 'en', slow = false, host = 'https://translate.google.com' }: Option = {}
 ): string => {
   assertInputTypes(text, lang, slow, host);
 
@@ -65,7 +65,7 @@ interface LongTextOption extends Option {
  *
  * @param {string}   text
  * @param {object?}  option
- * @param {string?}  option.lang        default is "en-US"
+ * @param {string?}  option.lang        default is "en"
  * @param {boolean?} option.slow        default is false
  * @param {string?}  option.host        default is "https://translate.google.com"
  * @param {string?}  option.splitPunct  split punctuation
@@ -74,7 +74,7 @@ interface LongTextOption extends Option {
 export const getAllAudioUrls = (
   text: string,
   {
-    lang = 'en-US',
+    lang = 'en',
     slow = false,
     host = 'https://translate.google.com',
     splitPunct = '',

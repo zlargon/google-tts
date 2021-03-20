@@ -35,7 +35,7 @@ Please see [CHANGELOG](https://github.com/zlargon/google-tts/blob/master/CHANGEL
 
 | Option       | Type      | Default                      | Description                                                                                                                    |
 | ------------ | --------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `lang`       | `string`  | en-US                        | See all avaiable language code at https://cloud.google.com/speech/docs/languages                                               |
+| `lang`       | `string`  | en                           | See all avaiable language code at https://cloud.google.com/speech/docs/languages                                               |
 | `slow`       | `boolean` | false                        | Use the slow audio speed if set `slow` to `true`                                                                               |
 | `host`       | `string`  | https://translate.google.com | You can change the `host` if the default host could not work in your region (e.g. https://translate.google.com.cn).            |
 | `timeout`    | `number`  | 10000 (ms)                   | (Only for `getAudioBase64` and `getAllAudioBase64`) Set timeout for the HTTP request.                                          |
@@ -51,7 +51,7 @@ const googleTTS = require('google-tts-api'); // CommonJS
 
 // get audio URL
 const url = googleTTS.getAudioUrl('Hello World', {
-  lang: 'en-US',
+  lang: 'en',
   slow: false,
   host: 'https://translate.google.com',
 });
@@ -67,7 +67,7 @@ const googleTTS = require('google-tts-api'); // CommonJS
 // get base64 text
 googleTTS
   .getAudioBase64('Hello World', {
-    lang: 'en-US',
+    lang: 'en',
     slow: false,
     host: 'https://translate.google.com',
     timeout: 10000,
@@ -83,7 +83,7 @@ import * as googleTTS from 'google-tts-api'; // ES6 or TypeScript
 const googleTTS = require('google-tts-api'); // CommonJS
 
 const results = googleTTS.getAllAudioUrls('LONG_TEXT_...', {
-  lang: 'en-US',
+  lang: 'en',
   slow: false,
   host: 'https://translate.google.com',
   splitPunct: ',.?',
@@ -104,7 +104,7 @@ const googleTTS = require('google-tts-api'); // CommonJS
 
 googleTTS
   .getAllAudioBase64('LONG_TEXT_...', {
-    lang: 'en-US',
+    lang: 'en',
     slow: false,
     host: 'https://translate.google.com',
     timeout: 10000,

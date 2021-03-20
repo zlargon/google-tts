@@ -5,12 +5,12 @@ jest.setTimeout(60000);
 
 const TestCases = [
   ['Hello'],
-  ['hello world', { lang: 'en-US' }],
+  ['hello world', { lang: 'en' }],
   ['hello world', { slow: false }],
   ['hello world', { host: 'https://translate.google.com.cn/' }],
   ['你好', { lang: 'zh' }],
   ['你好世界', { lang: 'zh' }],
-  ['123', { lang: 'en-US', slow: true }],
+  ['123', { lang: 'en', slow: true }],
   ['123', { lang: 'zh', slow: true }],
 ];
 
