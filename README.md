@@ -8,7 +8,7 @@ Google TTS (Text-To-Speech) for node.js
 [![][dependency-dev-img]][dependency-dev-url]
 [![][install-size-img]][install-size-result]
 
-[![][travis-img]][travis-url]
+[![][gh-action-img]][gh-action-url]
 [![][coverage-img]][coverage-url]
 
 ## Installation
@@ -133,7 +133,7 @@ MIT
 [dependency-img]: https://img.shields.io/david/zlargon/google-tts.svg
 [dependency-dev-url]: https://david-dm.org/zlargon/google-tts#info=devDependencies
 [dependency-dev-img]: https://img.shields.io/david/dev/zlargon/google-tts.svg
-[travis-url]: https://travis-ci.com/zlargon/google-tts
-[travis-img]: https://img.shields.io/travis/com/zlargon/google-tts
+[gh-action-url]: https://github.com/zlargon/google-tts/actions
+[gh-action-img]: https://github.com/github/docs/actions/workflows/build.yml/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/zlargon/google-tts
 [coverage-img]: https://img.shields.io/coveralls/github/zlargon/google-tts
